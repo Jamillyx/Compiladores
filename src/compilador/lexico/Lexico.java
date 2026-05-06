@@ -16,7 +16,7 @@ public class Lexico {
     private static final List<String> palavrasReservadas = Arrays.asList("const", "type", "var", "begin", "end",
             "while", "do", "for", "downto", "if", "then", "else", "case", "of", "array", "function", "procedure",
             "label", "record", "exit", "break", "continue", "and", "or", "not", "program", "integer", "write",
-            "writeln", "read", "repeat", "until");
+            "writeln", "read", "repeat", "until", "to", "true", "false");
     private int linha;
     private int coluna;
 
@@ -124,7 +124,7 @@ public class Lexico {
                         coluna++;
                     } else {
                         token.setClasse(ClasseToken.Maior);
-                        token.setValor(new ValorToken(":"));
+                        token.setValor(new ValorToken(">"));
                     }
 
                     return token;
@@ -156,7 +156,7 @@ public class Lexico {
                     coluna++;
                     return token;
                 } else if (caractere == ',') {
-                    token.setClasse(ClasseToken.Subtracao);
+                    token.setClasse(ClasseToken.Virgula);
                     token.setValor(new ValorToken(","));
                     caractere = (char) br.read(); // avança para o próx
                     coluna++;
@@ -216,6 +216,28 @@ public class Lexico {
                         return token;
 
                     }
+                } else if (caractere == '{') {
+                    while (caractere != '}' && caractere != EOF) {
+                        if (caractere == '\n') {
+                            linha++;
+                            coluna = 1;
+                        } else {
+                            coluna++;
+                        }
+                        caractere = (char) br.read();
+
+                    }
+                    if (caractere == '}') {
+                        caractere = (char) br.read();
+                        coluna++;
+                       // System.out.println("Deu erro?" + caractere);
+                        return getNexToken();
+                    } else if (caractere == EOF) {
+                        System.err.println("não fechou o comentário,fim do arquivo");
+                        token.setClasse(ClasseToken.EOF);
+                        return token;
+
+                    }
 
                 }
 
@@ -223,7 +245,9 @@ public class Lexico {
             token = new Token(linha, coluna);
             token.setClasse(ClasseToken.EOF);
             return token;
-        } catch (IOException e) {
+        } catch (
+
+        IOException e) {
             System.err.println("Não foi possível ler do arquivo: " + nomeArquivo);
         }
         return null;

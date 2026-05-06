@@ -1,7 +1,8 @@
+{ Programa que nao faz nada }
 Program MuitoDoido;
 Var TempoEmAnos, ValorSalario, x, y, z : Integer;
 a, b, c : Integer; 
-Begin 
+begin 
     If (TempoEmAnos > 10) Then
     Begin
         ValorSalario := 100; 
@@ -13,12 +14,12 @@ Begin
     x := 10;
     write(x);
     x := 2 + 5 * 3;
-    write();
+    write('Valor: ');
     write(x);
     read(x);
     read(y);
     z := x * y;
-    write();
+    write('Resultado: ');
     write(z);
     read(x);
     read(y);
@@ -45,20 +46,16 @@ Begin
     begin
         write(c);
     end;
-    write();
+    write('Informe a: ');
     read(a);
-    write();
+    write('Informe b: ');
     read(b);
-    if (a > 0 and b > 0) then
+    if (a > 0 and b > 0) then  
     begin
-        writeln();
+        writeln('Positivos');
     end
     else
     begin
-        writeln();
+        writeln('Um dos valores não é positivo');
     end;
-    write('teste');
-    write('teste
-    outra linha');
-    write('teste
 end.
